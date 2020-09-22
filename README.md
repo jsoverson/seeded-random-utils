@@ -1,61 +1,78 @@
-# Typescript boilerplate
+# Seeded Random Utils
 
-This is a boilerplate typescript project that incorporates fixes and best practices I come across as I build new projects.
-
-If you extend this via a fork or otherwise, please let me know so I can check out your changes!
+A seeded random utility library with functions for common random logic.
 
 ## Who is this for?
 
-Anyone who uses TypeScript with Visual Studio Code and writes tests with Mocha.
+Anyone who needs a seeded RNG or wants more random logic that reads more intuitively and contains less boilerplate.
 
-## Features
+## Installation
 
-- Build and watch with tolerable TS presets.
-- Testing with mocha & chai.
-- @types definitions for mocha, chai, node, and other dependencies included.
-- Local HTTP test server preconfigured in tests.
-- Visual Studio Code project settigns preconfigured for
-  - Test Explorer UI recognizing Typescript tests
-  - Debugging Typescript tests within the IDE
-- Adds `__projectroot` as an alternative to `__dirname` to avoid lookup problems from compiled files.
-- Configuration and rc files:
-  - One configuration location for mocha, prettier, eslint & typescript so CLI programs and IDEs/extensions reuse configuration.
-  - Config files whose path can be configured from a central location have been moved to `etc/`
-  - Minimal .gitignore
+```shell
+$ npm install seeded-random-utils
+```
 
-## Core npm scripts
+## Usage
 
-- `build`: build typescript
-- `compile`: clean & build
-- `clean`: remove build folder
-- `prepublishOnly`: compile
-- `format`: format source files inline with prettier
-- `watch`: clean && continuously build files on change
-- `lint`: lint src && test
-- `test:unit`: mocha tests
-- `test`: lint && test:unit
+For global usage or if you don't care about your seed
 
-## Visual Studio Code extensions
+```js
+const { Random } = require('seeded-random-utils');
+const arbitraryList = [1, 2, 3, 4, 5];
+Random.listItem(arbitraryList);
+```
 
-### Testing and debugging
+If you want to generate self-contained instances then instantiate `Random` and pass a seed to the constructor.
 
-Debugging within Visual Studio Code requires
+```js
+const { Random } = require('seeded-random-utils');
+const random = new Random(1000);
+const arbitraryList = [1, 2, 3, 4, 5];
+const item = random.listItem(arbitraryList);
+```
 
-- [Test Explorer UI](https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-test-explorer)
-- [Mocha Test Explorer](https://marketplace.visualstudio.com/items?itemName=hbenl.vscode-mocha-test-adapter)
+## API
 
-`.vscode/settings.json` is set up to parse Typescript files and to wire Mocha Test Explorer to the appropriate launch configuration in `.vscode/launch.json`. This wiring depends on the name of the launch configuration, do not change!
+### int(min = 0, max = Number.MAX_SAFE_INTEGER)
 
-### Recommended plugins
+Generate a random integer, optionally between min and max.
 
-- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
-- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+### oddInt(min = 0, max = Number.MAX_SAFE_INTEGER)
 
-The ESLint plugin is preconfigured for typescript in `.vscode/settings.json`.
+Generate a random odd integer, optionally between min and max.
 
-### Additional Configuration
+### float(min = 0, max = 1)
 
-Additional settings in `.vscode/settings.json`
+Generate a random decimal number between min and max.
 
-- `editor.formatOnSave : true` to keep manual autoformatting to a minimum
-- `debug.javascript.usePreview : false` to address debugging issues from [microsoft/vscode#102834](https://github.com/microsoft/vscode/issues/102834). This should be removed eventually.
+### decision(probability: number, decision: () => void)
+
+Make a decision with a `probability` chance of happening, e.g.
+
+```js
+Random.decision(0.25, () => {
+  console.log('I have a 25% chance of logging this');
+});
+```
+
+### listItem(list)
+
+Returns a random item from `list`
+
+### oneIn(num)
+
+Returns a boolean that has a one in `num` chance of being true.
+
+```js
+if (Random.oneIn(10)) {
+  showTreasureChest();
+}
+```
+
+### string(length = 10, alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
+
+Returns a random string of length `length` using the characters from `alphabet`
+
+### character(string)
+
+Returns a random character from `string`
