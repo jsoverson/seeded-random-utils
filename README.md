@@ -14,15 +14,7 @@ $ npm install seeded-random-utils
 
 ## Usage
 
-For global usage or if you don't care about your seed
-
-```js
-const { Random } = require('seeded-random-utils');
-const arbitraryList = [1, 2, 3, 4, 5];
-Random.listItem(arbitraryList);
-```
-
-If you want to generate self-contained instances then instantiate `Random` and pass a seed to the constructor.
+Generate an instance of a seeded random number generator by instantiatating `Random` with a seed.
 
 ```js
 const { Random } = require('seeded-random-utils');
@@ -33,19 +25,35 @@ const item = random.listItem(arbitraryList);
 
 ## API
 
-### int(min = 0, max = Number.MAX_SAFE_INTEGER)
+### `random.int(min, max)`
 
-Generate a random integer, optionally between min and max.
+Generate a random integer between min and max, inclusive.
 
-### oddInt(min = 0, max = Number.MAX_SAFE_INTEGER)
+- min: number, default 0
+- max: number, default Number.MAX_SAFE_INTEGER
 
-Generate a random odd integer, optionally between min and max.
+#### `oddInt(min, max)`
 
-### float(min = 0, max = 1)
+Generate a random odd integer between min and max, inclusive.
+
+- min: number, default 0
+- max: number, default Number.MAX_SAFE_INTEGER
+
+#### `evenInt(min, max)`
+
+Generate a random even integer between min and max, inclusive.
+
+- min: number, default 0
+- max: number, default Number.MAX_SAFE_INTEGER
+
+#### `float(min, max)`
 
 Generate a random decimal number between min and max.
 
-### decision(probability: number, decision: () => void)
+- min: number, default 0
+- max: number, default 1
+
+#### `decision(probability, decision)`
 
 Make a decision with a `probability` chance of happening, e.g.
 
@@ -55,11 +63,17 @@ Random.decision(0.25, () => {
 });
 ```
 
-### listItem(list)
+- probability: number
+- decision: function
+
+#### `listItem(list)`
 
 Returns a random item from `list`
 
-### oneIn(num)
+- probability: number
+- decision: function
+
+#### `oneIn(num)`
 
 Returns a boolean that has a one in `num` chance of being true.
 
@@ -69,10 +83,17 @@ if (Random.oneIn(10)) {
 }
 ```
 
-### string(length = 10, alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
+- num: number, no default.
 
-Returns a random string of length `length` using the characters from `alphabet`
+#### `string(length = 10, alphabet = /* A-Za-z0-9 */)`
 
-### character(string)
+Returns a random string of length `length` using the characters from `alphabet`. The default `alphabet` is capital letters A-Z, lowercase letters a-z, and numbers 0-9.
+
+- length: number, default `10`
+- alphabet: string, default = `'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'`
+
+#### `character(string)`
 
 Returns a random character from `string`
+
+- string: string, no default.
