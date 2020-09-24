@@ -14,15 +14,7 @@ $ npm install seeded-random-utils
 
 ## Usage
 
-For global usage or if you don't care about your seed
-
-```js
-const { Random } = require('seeded-random-utils');
-const arbitraryList = [1, 2, 3, 4, 5];
-Random.listItem(arbitraryList);
-```
-
-If you want to generate self-contained instances then instantiate `Random` and pass a seed to the constructor.
+Generate an instance of a seeded random number generator by instantiatating `Random` with a seed.
 
 ```js
 const { Random } = require('seeded-random-utils');
