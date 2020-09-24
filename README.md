@@ -25,19 +25,19 @@ const item = random.listItem(arbitraryList);
 
 ## API
 
-### int(min = 0, max = Number.MAX_SAFE_INTEGER)
+### `int(min = 0, max = Number.MAX_SAFE_INTEGER)`
 
 Generate a random integer, optionally between min and max.
 
-### oddInt(min = 0, max = Number.MAX_SAFE_INTEGER)
+### `oddInt(min = 0, max = Number.MAX_SAFE_INTEGER)`
 
 Generate a random odd integer, optionally between min and max.
 
-### float(min = 0, max = 1)
+### `float(min = 0, max = 1)`
 
 Generate a random decimal number between min and max.
 
-### decision(probability: number, decision: () => void)
+### `decision(probability: number, decision: () => void)`
 
 Make a decision with a `probability` chance of happening, e.g.
 
@@ -47,11 +47,11 @@ Random.decision(0.25, () => {
 });
 ```
 
-### listItem(list)
+### `listItem(list)`
 
 Returns a random item from `list`
 
-### oneIn(num)
+### `oneIn(num)`
 
 Returns a boolean that has a one in `num` chance of being true.
 
@@ -61,10 +61,10 @@ if (Random.oneIn(10)) {
 }
 ```
 
-### string(length = 10, alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
+### `string(length = 10, alphabet = /* A-Za-z0-9 */)`
 
-Returns a random string of length `length` using the characters from `alphabet`
+Returns a random string of length `length` using the characters from `alphabet`. The default `alphabet` is capital letters A-Z, lowercase letters a-z, and numbers 0-9.
 
-### character(string)
+### `character(string)`
 
 Returns a random character from `string`
