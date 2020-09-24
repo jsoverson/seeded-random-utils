@@ -1,14 +1,12 @@
 import seedrandom from 'seedrandom';
 
+function isEven(num: number) {
+  return num % 2 === 0;
+}
+
 export class Random {
   seed: number;
   rng: seedrandom.prng;
-
-  static rng = new Random(0);
-
-  static globalSeed(seed: number): void {
-    Random.rng = new Random(seed);
-  }
 
   constructor(seed?: number) {
     if (!seed) seed = seedrandom().int32();
@@ -21,8 +19,16 @@ export class Random {
   }
 
   oddInt(min = 0, max = Number.MAX_SAFE_INTEGER): number {
-    min = min % 2 === 0 ? min + 1 : min;
-    max = max % 2 === 0 ? max - 1 : max;
+    min = isEven(min) ? min + 1 : min;
+    max = isEven(max) ? max - 1 : max;
+    const delta = max - min;
+    const rand = this.int(0, delta / 2);
+    return min + rand * 2;
+  }
+
+  evenInt(min = 0, max = Number.MAX_SAFE_INTEGER): number {
+    min = !isEven(min) ? min + 1 : min;
+    max = !isEven(max) ? max - 1 : max;
     const delta = max - min;
     const rand = this.int(0, delta / 2);
     return min + rand * 2;
