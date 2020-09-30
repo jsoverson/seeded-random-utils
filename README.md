@@ -14,7 +14,7 @@ $ npm install seeded-random-utils
 
 ## Usage
 
-Generate an instance of a seeded random number generator by instantiatating `Random` with a seed.
+Generate an instance of a seeded random number generator by instantiating `Random` with a seed.
 
 ```js
 const { Random } = require('seeded-random-utils');
